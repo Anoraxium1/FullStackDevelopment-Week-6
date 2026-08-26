@@ -1,16 +1,20 @@
-<form (ngSubmit)="sendMessage()">
-  <input
-    type="text"
-    name="message"
-    [(ngModel)]="messageText"
-    placeholder="Type a message…"
-    autocomplete="off"
-  />
-  <button type="submit">Send</button>
-</form>
+<div class="chat-card">
+  <form (ngSubmit)="sendMessage()">
+    <input
+      type="text"
+      name="message"
+      [(ngModel)]="messageText"
+      placeholder="Type a message…"
+      autocomplete="off"
+    />
+    <button type="submit">Send</button>
+  </form>
 
-<ul>
-  @for (message of messages(); track $index) {
-    <li>{{ message }}</li>
-  }
-</ul>
+  <div class="messages-box">
+    <ul>
+      @for (message of messages(); track $index) {
+        <li>{{ message }}</li>
+      }
+    </ul>
+  </div>
+</div>
