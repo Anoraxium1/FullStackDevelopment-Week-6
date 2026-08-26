@@ -1,0 +1,16 @@
+<form (ngSubmit)="sendMessage()">
+  <input
+    type="text"
+    name="message"
+    [(ngModel)]="messageText"
+    placeholder="Type a message…"
+    autocomplete="off"
+  />
+  <button type="submit">Send</button>
+</form>
+
+<ul>
+  @for (message of messages(); track $index) {
+    <li>{{ message }}</li>
+  }
+</ul>
