@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Chat as ChatService } from '../services/chatService';
 
@@ -12,7 +13,15 @@ export class Chat {
   private readonly chatService = inject(ChatService);
 
   protected readonly messageText = signal('');
-  protected readonly messages = this.chatService.messages;
+  protected readonly messages = signal<string[]>([]);
+
+  constructor() {
+    this.chatService.messages$
+      .pipe(takeUntilDestroyed())
+      .subscribe((message) => {
+        this.messages.update((current) => [...current, message]);
+      });
+  }
 
   sendMessage(): void {
     const message = this.messageText().trim();
